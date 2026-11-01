@@ -218,3 +218,8 @@ __marimo__/
 .streamlit/secrets.toml
 
 .DS_Store
+spectr_logistic_chord_model.pkl
+root_chord_model.pkl
+logistic_chord_model.pkl
+cnn_root_chord_model.pth
+

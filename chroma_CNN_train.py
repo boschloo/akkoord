@@ -6,8 +6,8 @@ import torch.nn as nn
 from torch.utils.data import DataLoader, random_split
 from tqdm import tqdm
 
-from spect_CNN_dataset import ChordSpectrogramDataset
-from spect_CNN_model import ChordCNN
+from chroma_CNN_dataset import ChordSpectrogramDataset
+from chroma_CNN_model import ChordCNN
 
 DATASET_DIR = "./audio_samples"
 BATCH_SIZE = 32

@@ -4,8 +4,8 @@ import sys
 import torch
 import torch.nn.functional as F
 
-from spect_CNN_dataset import audio_to_chroma_tensor
-from spect_CNN_model import ChordCNN
+from chroma_CNN_dataset import audio_to_chroma_tensor
+from chroma_CNN_model import ChordCNN
 
 MODEL_PATH = "cnn_root_chord_model.pth"
 
