@@ -53,5 +53,5 @@ Er is een [requirements.txt](https://github.com/boschloo/akkoord/blob/main/requi
 
 **Resultaten en conclusies**
 
-Bestand output.txt toont een voorlopig resultaat. Uitwerking: -- TODO --
+Bestand [output.txt](https://github.com/boschloo/akkoord/blob/main/output.txt) toont een voorlopig resultaat. Uitwerking: -- TODO --
 
