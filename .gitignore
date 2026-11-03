@@ -223,3 +223,4 @@ root_chord_model.pkl
 logistic_chord_model.pkl
 cnn_root_chord_model.pth
 
+*.code-workspace

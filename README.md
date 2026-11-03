@@ -55,3 +55,4 @@ Er is een [requirements.txt](https://github.com/boschloo/akkoord/blob/main/requi
 
 Bestand [output.txt](https://github.com/boschloo/akkoord/blob/main/output.txt) toont een voorlopig resultaat. Uitwerking: -- TODO --
 
+Bij het programmeren is gebruik gemaakt van generative AI: Google (2026) Gemini 3.6 Flash. [https://gemini.google.com]()
