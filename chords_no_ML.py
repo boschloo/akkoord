@@ -5,6 +5,8 @@
 
 import librosa
 import numpy as np
+import matplotlib.pyplot as plt
+from scipy.signal import find_peaks
 import sys
 import argparse
 import os
@@ -49,6 +51,48 @@ def chord_score(chroma, chord_notes):
         score -= 0.2 * chroma[note]
 
     return score
+
+def plot_spectrum(y, sr, mean_chroma, title="", n_peaks=12):
+    """Teken het frequentiespectrum en de gemiddelde chroma."""
+
+    # FFT van het hele signaal, met Hann-venster tegen lekkage
+    spectrum = np.abs(np.fft.rfft(y * np.hanning(len(y))))
+    freqs = np.fft.rfftfreq(len(y), d=1 / sr)
+    spectrum_db = librosa.amplitude_to_db(spectrum, ref=np.max)
+
+    # Alleen het muzikaal interessante gebied
+    mask = (freqs >= 60) & (freqs <= 5000)
+    f, s = freqs[mask], spectrum_db[mask]
+
+    # Zoek de sterkste pieken (minimaal 20 Hz uit elkaar)
+    bin_width = freqs[1] - freqs[0]
+    peaks, _ = find_peaks(s, height=-50, distance=max(1, int(20 / bin_width)))
+    strongest = peaks[np.argsort(s[peaks])[::-1][:n_peaks]]
+
+    fig, (ax1, ax2) = plt.subplots(2, 1, figsize=(11, 8))
+
+    # Bovenste grafiek: spectrum
+    ax1.plot(f, s, linewidth=0.8)
+    for p in strongest:
+        # hz_to_note geeft bijv. "F♯3"; vervang het teken zodat het overal werkt
+        name = librosa.hz_to_note(f[p]).replace("♯", "#")
+        ax1.annotate(name, (f[p], s[p]), textcoords="offset points",
+                     xytext=(0, 6), ha="center", fontsize=8)
+    ax1.set_xscale("log")
+    ax1.set_xlim(60, 5000)
+    ax1.set_ylim(-80, 5)
+    ax1.set_xlabel("Frequentie (Hz)")
+    ax1.set_ylabel("Sterkte (dB)")
+    ax1.set_title(f"Frequentiespectrum {title}")
+    ax1.grid(True, which="both", alpha=0.3)
+
+    # Onderste grafiek: chroma per toonklasse
+    ax2.bar(NOTE_NAMES, mean_chroma)
+    ax2.set_ylabel("Genormaliseerde sterkte")
+    ax2.set_title("Gemiddelde chroma per toonklasse")
+
+    plt.tight_layout()
+    plt.show()
 
 def recognize_chord(filename):
     """
@@ -104,10 +148,11 @@ def recognize_chord(filename):
     # print("\nAkkoorden:")
     # for chord, score in sorted_scores:
     #     print(f"{chord:2s}: {score:.3f}")
-
+    
     best_chord = sorted_scores[0][0]
-
-    return best_chord
+    print(f"Predicted Chord: {best_chord}\n")
+    plot_spectrum(y, sr, mean_chroma, title=os.path.basename(filename))
+    return
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(
@@ -140,6 +185,5 @@ if __name__ == "__main__":
         file_path = os.path.join(target_dir, file_name)
         try:
             chord = recognize_chord(file_path)
-            print(f"{file_name}: Predicted Chord: {chord}\n")
         except Exception as e:
             print(f"{file_name}: Fout bij verwerken ({e})\n")
