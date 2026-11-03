@@ -224,3 +224,5 @@ logistic_chord_model.pkl
 cnn_root_chord_model.pth
 
 *.code-workspace
+Resulaat.xlsx
+~$Resultaat.xlsx
