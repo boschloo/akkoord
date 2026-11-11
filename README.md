@@ -25,8 +25,8 @@ Naming convention for the chord samples:
 
 | Code    |   Possible values         | Explanation|
 |---------|--------------------------|------------|
-| Abbreviation instrument   |<ul><li>asx: alto saxophone</li><li>blf: recorder</li><li>cel: violoncello</li><li>cbs: double bass</li><li>hbo: oboe</li><li>klt: clarinet</li><li>org: church organ</li><li>pno: piano</li><li>trb:trombone</li><li>tpt: trumpet</li></ul>|  |
-| Pitch  |<ul><li>435 Hz</li><li>440 Hz</li><li>442 Hz</li></ul> | Pitch of A4 (the first A to the right of the center of the piano ;)   |
+| Abbreviation instrument   |<ul><li>act: accordion</li><li>asx: alto saxophone</li><li>bgt: bass guitar</li><li>blf: recorder</li><li>cbs: double bass</li><li>cel: violoncello</li><li>hbo: oboe</li><li>klt: clarinet</li><li>org: church organ</li><li>pno: piano</li><li>tba: tuba</li><li>tpt: trumpet</li><li>trb:trombone</li></ul>|  |
+| Pitch  |<ul><li>435 Hz</li><li>440 Hz</li><li>442 Hz</li></ul> | Pitch of A4 (the first A to the right of the middle of the piano keyboard ;)   |
 | Character of the chord   | <ul><li>maj: major</li><li> min: minor</li><li> dim: diminished</li><li>aug: augmented</li></ul>|
 Inversion of the chord    |<ul><li>123: base</li><li>231: first inversion</li><li>312: second inversion</li></ul> |By definition, diminished and augmented chords only exist in root position.
 | Source of sample| <ul><li>drc: Dorico</li><li>liv: live played and/ or composed</li></ul> | 
