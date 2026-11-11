@@ -35,7 +35,7 @@ The number of samples varies per musical instrument, depending on the instrument
  
 Directory [unlabeled_samples](https://github.com/boschloo/akkoord/tree/main/unlabeled_samples) is intended for .wav files containing unknown chords, which the model should be able to recognize following a training phase. The names of these files can be chosen arbitrarily.
  
-Directory [unlabeled_samples_run04] (https://github.com/boschloo/akkoord/tree/main/unlabeled_samples_run04) contains a set of 20 live played samples by different instruments.
+Directory [unlabeled_samples_run04](https://github.com/boschloo/akkoord/tree/main/unlabeled_samples_run04) contains a set of 20 live played samples by different instruments.
 
 
 **Instructions**
