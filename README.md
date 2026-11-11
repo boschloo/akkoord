@@ -1,7 +1,7 @@
 # akkoord
 Project voor het OU-vak Key Topics
 
-**Onderzochte combinaties van audiorepresentatie en modeltype**
+**Investigated combinations of audio representation and model type**
 
 |  # | Filename | Audio Representation | Model  |
 |-------|-------|----------------------|--------| 
@@ -16,32 +16,34 @@ Project voor het OU-vak Key Topics
 
 **Dataset**
 
-De map [audio_samples](https://github.com/boschloo/akkoord/tree/main/audio_samples) bevat 9102 samples van akkoorden. De akkoorden zijn gegenereerd met behulp van het notatieprogramma [Dorico](https://www.steinberg.net/dorico/%5D(Dorico)) van Steinberg.  Er zijn verschillende software instrumenten gebruikt. De instrumenten zijn afkomstig uit de meegeleverde HALion Sonic SE3-bibliotheek. 
+The [audio_samples](https://github.com/boschloo/akkoord/tree/main/audio_samples) folder contains 9,102 chord samples. The chords were generated using the notation software [Dorico](https://www.steinberg.net/dorico/) by Steinberg. Various software instruments were used, all of which are from the included HALion Sonic SE3 library.
 
-Het bestandsformaat is WAV, sample rate 48000 Hz, signed 16-bit PCM, mono. De oorspronkelijke opnames namen veel ruimte in en zijn daarom ingekort tot 2 seconden per sample.
- 
-Naamgeving van de akkoordsamples:
+The file format is WAV, with a sample rate of 48,000 Hz, 16-bit signed PCM, and mono. The original recordings took up a significant amount of space, so they have been trimmed to 2 seconds per sample.
+
+Naming convention for the chord samples:
 
 
-| Code    |   Mogelijke waarden         | Toelichting|
+| Code    |   Possible values         | Explanation|
 |---------|--------------------------|------------|
-| Afkorting instrument   |<ul><li>asx: altsaxofoon</li><li>blf: blokfluit</li><li>cel: cello</li><li>cbs: contrabas</li><li>hbo: hobo</li><li>klt:klarinet</li><li>org: kerkorgel</li><li>pno: piano</li><li>trb:trombone</li><li>tpt: trompet</li></ul>|  |
-| Stemming  |<ul><li>435 Hz</li><li>440 Hz</li><li>442 Hz</li></ul> | toonhoogte van A (de eerste A rechts van het midden van de piano ;)   |
-| Karakter van het akkoord   | <ul><li>maj: majeur</li><li> min: mineur</li><li> dim: verminderd</li><li>aug: overmatig</li></ul>|
-Ligging van het akkoord    |<ul><li>123: grondligging</li><li>231: eerste omkering</li><li>312: tweede omkering</li></ul> |Verminderde en overmatige akkoorden per definitie alleen in de grondligging
-| Bron van de sample| <ul><li>drc: Dorico</li><li>liv: live ingespeeld en/of samengesteld</li></ul> | 
+| Abbreviation instrument   |<ul><li>asx: alto saxophone</li><li>blf: recorder</li><li>cel: violoncello</li><li>cbs: double bass</li><li>hbo: oboe</li><li>klt: clarinet</li><li>org: church organ</li><li>pno: piano</li><li>trb:trombone</li><li>tpt: trumpet</li></ul>|  |
+| Pitch  |<ul><li>435 Hz</li><li>440 Hz</li><li>442 Hz</li></ul> | Pitch of A4 (the first A to the right of the center of the piano ;)   |
+| Character of the chord   | <ul><li>maj: major</li><li> min: minor</li><li> dim: diminished</li><li>aug: augmented</li></ul>|
+Inversion of the chord    |<ul><li>123: base</li><li>231: first inversion</li><li>312: second inversion</li></ul> |By definition, diminished and augmented chords only exist in root position.
+| Source of sample| <ul><li>drc: Dorico</li><li>liv: live played and/ or composed</li></ul> | 
 
-De aantallen samples verschillen per instrument, afhankelijk van het bereik (laag-hoog). 
+The number of samples varies per musical instrument, depending on the instrument's range (low to high). 
  
-De map [unlabeled_samples](https://github.com/boschloo/akkoord/tree/main/unlabeled_samples) is bedoeld voor .wav-bestanden met onbekende akkoorden die na het leren door het model herkend moeten kunnen worden. De naam van deze bestanden kan. willekeurig worden gekozen.
+Directory [unlabeled_samples](https://github.com/boschloo/akkoord/tree/main/unlabeled_samples) is intended for .wav files containing unknown chords, which the model should be able to recognize following a training phase. The names of these files can be chosen arbitrarily.
  
-**Gebruiksaanwijzing**
+Directory [unlabeled_samples_run04] (https://github.com/boschloo/akkoord/tree/main/unlabeled_samples_run04) contains a set of 20 live played samples by different instruments.
 
-De Python-scripts die op -train eindigen, gebruiken data uit de map [audio_samples](https://github.com/boschloo/akkoord/tree/main/audio_samples) om het model te leren. Deze scripts gebruiken de naamgeving van deze .wav-bestanden voor het labelen van features. Van de mogelijke features worden de 12 toonhoogtes (C_, C#,..,) en het karakter (alleen maj, min, dim, aug) geleerd. DIt geeft 48 mogelijke combinaties van akkoordtypes.
 
-Python-scripts eindigend op -predict lezen .wav-data in de map [unlabeled_samples](https://github.com/boschloo/akkoord/tree/main/unlabeled_samples). Met behulp van het model worden de akkoordtypes voorspeld.
+**Instructions**
 
-*Voorbeeld:*
+Python scripts ending in "-train" use data from the [audio_samples](https://github.com/boschloo/akkoord/tree/main/audio_samples) directory to train the model. These scripts use the naming convention of the .wav files to label the features. Specifically, the model learns 12 pitch classes (C, C#, etc.) and the chord quality (major, minor, diminished, or augmented), resulting in 48 possible chord type combinations.
+
+Python scripts ending in "-predict" read .wav data from the [unlabeled_samples](https://github.com/boschloo/akkoord/tree/main/unlabeled_samples) directory and use the model to predict the chord types.
+*Example:*
 
 >`Projects/akkoord> python3 spectr_rf_train.py`
 
@@ -49,10 +51,12 @@ Python-scripts eindigend op -predict lezen .wav-data in de map [unlabeled_sample
 >`Projects/akkoord> python3 spectr_rf_predict.py`
 
 
-Er is een [requirements.txt](https://github.com/boschloo/akkoord/blob/main/requirements.txt) file om de omgeving in te stellen.
+A [requirements.txt](https://github.com/boschloo/akkoord/blob/main/requirements.txt) files can be used to set up the environment.
 
-**Resultaten en conclusies**
+**Results**
 
-Bestand [output.txt](https://github.com/boschloo/akkoord/blob/main/output.txt) toont een voorlopig resultaat. Uitwerking: -- TODO --
+The file [output.txt](https://github.com/boschloo/akkoord/blob/main/output.txt) shows a prelimiary result.
 
-Bij het programmeren is gebruik gemaakt van generative AI: Google (2026) Gemini 3.6 Flash. [https://gemini.google.com]()
+The file [output_run04.txt](https://github.com/boschloo/akkoord/blob/main/output_run04.txt) show results with the live played test set.
+
+Generative AI - specifically Google (2026) Gemini 3.6 Flash - was used during the programming process. [https://gemini.google.com]()
