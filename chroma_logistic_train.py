@@ -1,8 +1,6 @@
 # Akkoordherkenning
 # Gemini
 # Logistic Regression, chromagram
-# RandomForest Classifier
-
 
 
 import os

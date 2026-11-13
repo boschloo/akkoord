@@ -7,20 +7,18 @@ from spectr_CNN_dataset import ChordSpectrogramDataset
 from spectr_CNN_model import ChordCNN
 
 DATASET_DIR = "./audio_samples"
-BATCH_SIZE = 32
-EPOCHS = 10
-LEARNING_RATE = 0.001
+BATCH_SIZE = 16          # Verlaagd naar 16 vanwege de grotere tensor in de Linear layer
+EPOCHS = 15              # Verhoogd voor gestage convergentie
+LEARNING_RATE = 0.0003   # CRUCIAAL: Verlaagd van 0.001 voor Mel-spectrogrammen
 
 def train():
     device = torch.device("cuda" if torch.cuda.is_available() else "mps" if torch.backends.mps.is_available() else "cpu")
-    print(f"Using compute device: {device}")
+    print(f"Gebruikte hardware: {device}")
 
-    # Load dataset
     full_dataset = ChordSpectrogramDataset(DATASET_DIR)
     num_classes = len(full_dataset.class_to_idx)
-    print(f"Found {len(full_dataset)} samples across {num_classes} classes.")
+    print(f"Dataset geladen: {len(full_dataset)} samples over {num_classes} klassen.")
 
-    # Train / Test split (80/20)
     train_size = int(0.8 * len(full_dataset))
     val_size = len(full_dataset) - train_size
     train_dataset, val_dataset = random_split(full_dataset, [train_size, val_size])
@@ -28,12 +26,12 @@ def train():
     train_loader = DataLoader(train_dataset, batch_size=BATCH_SIZE, shuffle=True)
     val_loader = DataLoader(val_dataset, batch_size=BATCH_SIZE, shuffle=False)
 
-    # Model, Loss, Optimizer
     model = ChordCNN(num_classes=num_classes).to(device)
     criterion = nn.CrossEntropyLoss()
-    optimizer = torch.optim.Adam(model.parameters(), lr=LEARNING_RATE)
+    
+    # Adam met L2-regularisatie (weight decay)
+    optimizer = torch.optim.Adam(model.parameters(), lr=LEARNING_RATE, weight_decay=1e-4)
 
-    # Training Loop
     for epoch in range(1, EPOCHS + 1):
         model.train()
         train_loss, correct = 0.0, 0
@@ -53,7 +51,7 @@ def train():
             
         train_acc = correct / train_size
         
-        # Validation Step
+        # Validatie
         model.eval()
         val_correct = 0
         with torch.no_grad():
@@ -66,14 +64,14 @@ def train():
         val_acc = val_correct / val_size
         print(f"Epoch {epoch} Summary: Train Acc: {train_acc*100:.2f}% | Val Acc: {val_acc*100:.2f}%")
 
-    # Save model and mapping
+    # Opslaan
     torch.save({
         'model_state_dict': model.state_dict(),
         'class_to_idx': full_dataset.class_to_idx,
         'idx_to_class': full_dataset.idx_to_class,
         'num_classes': num_classes
     }, "cnn_root_chord_model.pth")
-    print("CNN Model successfully saved to 'cnn_root_chord_model.pth'")
+    print("CNN Model succesvol opgeslagen in 'cnn_root_chord_model.pth'")
 
 if __name__ == "__main__":
     train()

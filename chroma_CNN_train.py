@@ -8,8 +8,9 @@ from tqdm import tqdm
 
 from chroma_CNN_dataset import ChordSpectrogramDataset
 from chroma_CNN_model import ChordCNN
+import warnings
 
-DATASET_DIR = "./audio_samples"
+DATASET_DIR = "./audio_samples_live"
 BATCH_SIZE = 32
 EPOCHS = 10
 LEARNING_RATE = 0.001
@@ -79,4 +80,10 @@ def train():
     print("CNN Model successfully saved to 'cnn_root_chord_model.pth'")
 
 if __name__ == "__main__":
+
+    warnings.filterwarnings(
+        "ignore", 
+        category=UserWarning, 
+        module="librosa.core.constantq"
+    )
     train()

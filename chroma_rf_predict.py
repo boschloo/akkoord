@@ -2,22 +2,32 @@ import os
 import joblib
 import numpy as np
 import librosa
+import warnings
 
 MODEL_PATH = "root_chord_model.pkl"
 UNLABELED_DIR = "./unlabeled_samples"
 
 def extract_features(file_path):
-    """Must match the exact feature extraction logic used during training."""
+    """Extracts 24-dimensional Chromagram features matching root_chord_model.pkl."""
     y, sr = librosa.load(file_path, sr=22050)
     
     n_samples = len(y)
     if n_samples < 128:
         return np.zeros(24)
+    
+    n_fft = min(2048, 2 ** int(np.log2(n_samples)))
         
     n_fft = min(2048, 2 ** int(np.log2(n_samples)))
     hop_length = max(32, n_fft // 4)
     
-    chroma = librosa.feature.chroma_cqt(y=y, sr=sr, hop_length=hop_length)
+    # 1. Extract 12 pitch classes using Constant-Q Chromagram
+    chroma = librosa.feature.chroma_cqt(
+        y=y, 
+        sr=sr, 
+        hop_length=hop_length
+    )
+    
+    # 2. Aggregate across time axis -> 12 means + 12 stds = 24 features
     chroma_mean = np.mean(chroma, axis=1)
     chroma_std = np.std(chroma, axis=1)
     
@@ -53,6 +63,13 @@ def predict_folder(folder_path, model):
             print(f"{file_name}: Error processing file ({e})")
 
 if __name__ == "__main__":
+
+# Voeg dit bovenaan je script toe om de interne librosa CQT-waarschuwing te negeren
+    warnings.filterwarnings(
+        "ignore", 
+        category=UserWarning, 
+        module="librosa.core.constantq"
+    )
     if os.path.exists(MODEL_PATH):
         clf = joblib.load(MODEL_PATH)
         predict_folder(UNLABELED_DIR, clf)
