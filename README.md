@@ -33,11 +33,9 @@ Inversion of the chord    |<ul><li>123: base</li><li>231: first inversion</li><l
 
 The number of samples varies per musical instrument, depending on the instrument's range (low to high). 
  
-Directory [unlabeled_samples](https://github.com/boschloo/akkoord/tree/main/unlabeled_samples) is intended for .wav files containing unknown chords, which the model should be able to recognize following a training phase. The names of these files can be chosen arbitrarily.
+Directory [unlabeled_samples](https://github.com/boschloo/akkoord/tree/main/unlabeled_samples) is intended for .wav files containing unknown chords, which the model should be able to recognize following a training phase. The names of these files can be chosen arbitrarily. It contains a selected set of 20 live played samples by different instruments.
  
 Directory [audio_samples_live](https://github.com/boschloo/akkoord/tree/main/audio_samples_live) contains 820 samples live played / composed by different instruments.
- 
-Directory [unlabeled_samples_run04](https://github.com/boschloo/akkoord/tree/main/unlabeled_samples_run04) contains a selected set of 20 live played samples by different instruments.
 
 
 **Instructions**
@@ -57,8 +55,8 @@ A [requirements.txt](https://github.com/boschloo/akkoord/blob/main/requirements.
 
 **Results**
 
-The file [output.txt](https://github.com/boschloo/akkoord/blob/main/output.txt) shows a prelimiary result.
+The file [output.txt](https://github.com/boschloo/akkoord/blob/main/output.txt) shows a preliminary result.
 
 The file [output_run04.txt](https://github.com/boschloo/akkoord/blob/main/output_run04.txt) show results with the live played test set.
 
-Generative AI - specifically Google (2026) Gemini 3.6 Flash - was used during the programming process. [https://gemini.google.com]()
+Generative AI - specifically Google (2026) Gemini 3.6 Flash and ChatGPT Free - was used during the programming process. [https://gemini.google.com]()
