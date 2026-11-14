@@ -22,6 +22,16 @@ The file format is WAV, with a sample rate of 48,000 Hz, 16-bit signed PCM, and 
 
 Naming convention for the chord samples:
 
+>AAA_PPP_CCC_999_NNO_SSS.wav
+
+where <ul><li>AAA: Instrument abbreviation</li>
+<li>PPP: Pitch (Hz)</li>
+<li>CCC: Chord character</li>
+<li>999: Chord inversion</li>
+<li>NN  : note name</li>
+<li>O   : Octave</li>
+<li>SSS: Source of the recording</li>
+</ul>
 
 | Code    |   Possible values         | Explanation|
 |---------|--------------------------|------------|
@@ -29,6 +39,8 @@ Naming convention for the chord samples:
 | Pitch  |<ul><li>435 Hz</li><li>440 Hz</li><li>442 Hz</li></ul> | Pitch of A4 (the first A to the right of the middle of the piano keyboard ;)   |
 | Character of the chord   | <ul><li>maj: major</li><li> min: minor</li><li> dim: diminished</li><li>aug: augmented</li></ul>|
 Inversion of the chord    |<ul><li>123: base</li><li>231: first inversion</li><li>312: second inversion</li></ul> |By definition, diminished and augmented chords only exist in root position.
+| Name of the note |  <ul><li>A-G</li></ul> | As usual in Western music. For the black key notes the \# symbol (sharp) is used.
+| Octave |  <ul><li>0-7</li></ul> | [definition](https://en.wikipedia.org/wiki/Octave)
 | Source of sample| <ul><li>drc: Dorico</li><li>liv: live played and/ or composed</li></ul> | 
 
 The number of samples varies per musical instrument, depending on the instrument's range (low to high). 
